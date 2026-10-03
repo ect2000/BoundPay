@@ -53,6 +53,7 @@ PayPal Sandbox settlement goes to the configured test merchant; it does not orde
 - **74 unit/adapter tests passed**, covering policy, evidence, both scopes, scope-bound approval, exact money, signed state, agent bounds, provider contracts and PayPal amount/idempotency/completion.
 - **Four Playwright tests passed**, covering local complete journey, exact USD 3,120 rejection and restore, review gates, responsive layouts, keyboard controls, forged/stale state and same-origin protections.
 - **Lint, typecheck and production build passed.** Local tests use clearly labeled fixtures; live provider evidence above is separate.
+- [GitHub CI for final application commit `53c6cfe`](https://github.com/ect2000/BoundPay/actions/runs/37131061018) completed successfully on Ubuntu, including all unit tests, Playwright, lint, typecheck and production build. Subsequent edits only clarify documentation and select the already captured live images.
 - Production runs real OpenRouter, Channel3 and PayPal Sandbox. Final deployment `dpl_EsNTFjzgeFdVYL2KcuHJezDcN7X9` is READY and aliased to https://boundpay.vercel.app; `/api/status` returned HTTP 200 with real provider modes. The Channel3 skill is installed, and the official SDK/freshness guidance is used.
 - Runtime dependency audit previously reported zero advisories. The development ESLint toolchain retains a transitive braces advisory; no incompatible downgrade was made.
 

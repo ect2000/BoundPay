@@ -117,8 +117,8 @@ One Next.js 16.3.8 App Router deployment, React 19.3, TypeScript, Tailwind CSS 4
 
 ## Screenshots
 
-![Local procurement comparison](docs/screenshots/05-product-grid.png)
-![Payment mandate, local development](docs/screenshots/08-payment-mandate.png)
+![Real Channel3 comparison and compliant Policy Guard](docs/screenshots/18-live-compliant-policy.jpg)
+![Actual completed PayPal Sandbox capture and audit](docs/screenshots/17-live-paypal-completed-audit.jpg)
 
 [Screenshot provenance](docs/screenshots/README.md) distinguishes local fixtures from real production research, budget rejection and the payment mandate. A local simulated checkout is never evidence of a real Sandbox capture.
 

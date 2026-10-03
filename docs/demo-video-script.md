@@ -2,6 +2,8 @@
 
 Record actual provider calls and actual Sandbox completion. Hide buyer credentials and account details. This is a recording script, not a produced video. [Scenario definitions and verifiable constraints](demo-scenarios.md).
 
+The observed happy path completed order `4ER995653J590745D` and capture `8JG393861X927505V`, exactly USD 2,950.68, with matching mandate fingerprint. [Authenticated, sanitized confirmation](live-payment-completed.json).
+
 | Time      | Screen                                                         | Narration                                                                                                                                                                         |
 | --------- | -------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 0:00–0:12 | Landing                                                        | “An AI can research a purchase. But a recommendation should never become permission to spend your budget.”                                                                        |
