@@ -18,7 +18,7 @@ BoundPay turns a purchasing request into a reviewed spending mandate, bounded pr
 
 ## Current demo status
 
-Authenticated OpenRouter intent parsing and bounded research with real Channel3 listings have been verified. PayPal Sandbox OAuth authentication succeeds. **A buyer-approved order and completed Sandbox capture are still pending human verification.** Public deployment uses real providers and refuses mock integrations. Local development without credentials provides a clearly labeled parser / synthetic fixtures / checkout simulation. Missing product evidence blocks payment rather than becoming a fabricated guarantee. See the [build report](docs/build-report.md).
+Two deliberate demos are available: [A: live Sandbox catalog subtotal](https://boundpay.vercel.app/mission?demo=1) and [B: fail-closed evidence boundary](https://boundpay.vercel.app/mission?demo=trust). Real OpenRouter extraction and fresh Channel3 research produced 30 candidates and three eligible offers in the public A run. The USD 2,950.68 basket passed all six hard checks; a real USD 3,601.56 alternative was blocked. **Actual human approval, Sandbox buyer approval and capture are completed: order `4ER995653J590745D`, capture `8JG393861X927505V`, exactly USD 2,950.68.** An authenticated PayPal GET confirmed COMPLETED, exact amount and matching mandate fingerprint. Public deployments refuse mocks. [Sanitized payment evidence](docs/live-payment-completed.json) · [Verifiable requirements](docs/demo-scenarios.md) · [Build report](docs/build-report.md).
 
 ## Core trust model
 
@@ -75,13 +75,13 @@ All workflow-affecting AI responses use JSON schema and Zod validation. AI may p
 
 Money uses integer cents. Decimal strings are converted exactly without floating-point financial calculations. Supported currencies are USD, EUR and GBP, all with two minor-unit digits.
 
-Checks include total and per-unit ceilings, exact quantity, currency, display size, USB-C, rating, custom features, deadline, allow/block merchant rules, verified final cost and available quantity. A single failure blocks the proposal. Approval remains required after all checks pass.
+Checks include total and per-unit ceilings, exact quantity, currency, source category, display size, USB-C, rating, custom features, deadline and allow/block merchant rules. The default `verified_purchase` scope also requires verified final cost and exact available quantity. The explicit, human-reviewed `sandbox_catalog` scope authorizes only an exact catalog-subtotal test, with no retail fulfillment. Any additionally requested hard fact must still pass in either scope. Missing evidence is `NEEDS_EVIDENCE`; proved violations are `FAIL`. Both block payment capability issuance. Approval remains required after every hard check passes. Changing scope changes the purchase fingerprint.
 
 Eligible products use a published score:
 
 `30% value + 25% quality + 20% delivery + 15% preferences + 10% merchant`
 
-Value is `max(0, 100 - basketCost / budget * 60)`; quality is rating divided by five; delivery rewards verified days before the deadline; preference is the fraction of requested feature preferences matched; merchant rewards the user's allowlist. Missing optional scoring data receives the documented neutral score (50), never fabricated evidence. Ties use lower unit price, then product ID. The optimizer selects the highest-ranked eligible uniform basket; mixed baskets are outside this MVP.
+Value is `max(0, 100 - basketCost / budget * 60)`; quality is rating divided by five, with zero when absent; delivery rewards verified days before the deadline, otherwise 50; preference is the fraction of requested feature preferences matched, otherwise 50; merchant rewards the user's allowlist. These scoring defaults never constitute evidence for a hard requirement. Ties use lower unit price, then product ID. The optimizer selects the highest-ranked eligible uniform basket; mixed baskets are outside this MVP.
 
 ## Payment mandate and human approval
 
@@ -120,7 +120,7 @@ One Next.js 16.3.8 App Router deployment, React 19.3, TypeScript, Tailwind CSS 4
 ![Local procurement comparison](docs/screenshots/05-product-grid.png)
 ![Payment mandate, local development](docs/screenshots/08-payment-mandate.png)
 
-[All screenshot assets](docs/screenshots/README.md) are explicitly local development fixtures except the data-independent landing. Replace judge-facing payment evidence with a real Sandbox capture after credentials are configured.
+[Screenshot provenance](docs/screenshots/README.md) distinguishes local fixtures from real production research, budget rejection and the payment mandate. A local simulated checkout is never evidence of a real Sandbox capture.
 
 ## Run locally
 
@@ -161,9 +161,9 @@ npm run test:e2e
 npm run build
 ```
 
-68 unit/adapter tests cover money, schema normalization, free-model rejection, policy failures, injection separation, signed state, agent limits/failures/deduplication and PayPal creation/capture/idempotency. Three browser tests cover the full honest local demo, responsive layouts at 1024/390px, keyboard drawer dismissal, same-origin checks, forged policy, stale approvals and missing capture authority. They capture the screenshot pack at 1440px. Test transport holds the research request solely to capture the actual pending UI; production has no artificial processing delay.
+74 unit/adapter tests cover money, schema normalization, free-model rejection, both authorization scopes, missing evidence, scope-bound approval, policy failures, injection separation, signed state, agent limits and PayPal creation/capture/idempotency. Four browser tests cover the local journey, both demos, the exact USD 3,120 budget block and restore action, responsive layouts at 1024/390px, keyboard review, forged policy, stale approval and missing capture authority. They capture the local screenshot pack at 1440px. Test transport holds research solely to capture the actual pending UI; production has no artificial processing delay.
 
-Live AI extraction, agent planning, Channel3 search/detail and Sandbox OAuth have been verified separately from fixture browser tests. A real buyer-approved Sandbox capture remains unverified. Complete the [live verification checklist](docs/credentials.md) to obtain final payment evidence. Runtime dependency audit reports no vulnerabilities; the current Next ESLint toolchain has a transitive `braces` development advisory without a compatible upstream fix. Do not downgrade the framework blindly to satisfy the audit tool.
+Real AI extraction/planning, fresh Channel3 research, human approval, PayPal buyer approval and exact completed Sandbox capture have been verified separately from fixture browser tests. [Payment evidence](docs/live-payment-completed.json) and live screenshots contain no credentials. The [verification checklist](docs/credentials.md) supports repeating the workflow. Runtime dependency audit previously reported no vulnerabilities; the current Next ESLint toolchain has a transitive `braces` development advisory without a compatible upstream fix.
 
 ## Deployment
 

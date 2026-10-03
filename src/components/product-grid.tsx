@@ -103,18 +103,31 @@ export default function ProductGrid({
       },
       {
         headerName: 'POLICY',
-        valueGetter: (p) => (p.data?.eligible ? 'Eligible' : 'Rejected'),
+        valueGetter: (p) =>
+          p.data?.eligible
+            ? 'Eligible'
+            : p.data?.status === 'needs_evidence'
+              ? 'Needs evidence'
+              : 'Rejected',
         width: 115,
         pinned: 'right',
         cellRenderer: (p: ICellRendererParams<RankedProduct>) => (
-          <span className={`status-chip ${p.data?.eligible ? 'safe' : 'danger'}`}>
-            {p.data?.eligible ? '✓ Eligible' : '× Rejected'}
+          <span
+            className={`status-chip ${p.data?.eligible ? 'safe' : p.data?.status === 'needs_evidence' ? 'amber-chip' : 'danger'}`}
+          >
+            {p.data?.eligible
+              ? '✓ Eligible'
+              : p.data?.status === 'needs_evidence'
+                ? '? Needs evidence'
+                : '× Rejected'}
           </span>
         ),
       },
       {
         headerName: 'CONSTRAINT FAILURES',
-        valueGetter: (p) => p.data?.failures.join('; ') || 'All hard requirements satisfied',
+        valueGetter: (p) =>
+          [...(p.data?.failures ?? []), ...(p.data?.missingEvidence ?? [])].join('; ') ||
+          'All hard requirements satisfied',
         width: 320,
       },
       {

@@ -1,0 +1,170 @@
+Browser tab: 1, Title: "BoundPay — Procurement inside your rules", URL: "https://boundpay.vercel.app/mission".
+1 AXWebArea BoundPay — Procurement inside your rules, URL: boundpay.vercel.app/mission
+	2 container
+		3 link Description: Skip to workspace, Value: boundpay.vercel.app/mission#workspace-main
+		4 link Description: BoundPay home, Value: boundpay.vercel.app/
+		5 text Procurement workspace
+		6 text PayPal Sandbox catalog-subtotal test for 12 computer monitors
+		7 button SANDBOX ENVIRONMENT
+		8 text WORKSPACE
+		9 button Purchasing mission
+		10 button Product comparison
+		11 button Policy Guard
+		12 button Audit trail
+		13 button Agent trace
+		14 text RECENT MISSIONS
+		15 button PayPal Sandbox catalog-subtotal test for 12 computer monitors
+		16 button Equip engineering team with 27-inch monitors
+		17 button Equip our 12-person engineering team with 27-inch monitors
+		18 button Equip our 12-person engineering team with 27-inch USB-C monitors
+		19 button New mission
+		20 text Your rules. Enforced.
+		21 container
+			22 text AI recommends.
+			23 text You authorize.
+		24 button Integration status
+		25 container workspace-main
+			26 text Mission Mandate Research Verify Approve 06 Pay & audit SANDBOX CATALOG SUBTOTAL — Exact listed amount only. Stock, delivery, ratings and landed cost are not verified. No retail purchase or fulfillment. MISSION /  79D500CA
+			27 heading PayPal Sandbox catalog-subtotal test for 12 computer monitors, Value: 1
+				28 text PayPal Sandbox catalog-subtotal test for 12 computer monitors
+			29 container
+				30 text 12  units  · $3,000.00  budget  · No delivery deadline
+			31 button Edit mandate
+			32 button Compare products 30
+				33 text Compare products
+				34 text 30
+			35 button Policy Guard
+			36 button Audit trail
+			37 button Agent trace
+			44 container
+				45 heading Audit trail, Value: 2
+					46 text Audit trail
+				47 text Every major decision, attributed to the actor responsible.
+				48 button Export JSON
+				49 text PAYPAL /  SANDBOX
+				50 heading Sandbox payment completed, Value: 3
+					51 text Sandbox payment completed
+				52 text Capture ID: 8JG393861X927505V CONFIRMED BY PAYPAL
+				53 text MISSION PARSED
+				54 text AGENT
+				55 text 16:26:28
+				56 text OpenRouter extracted a draft. User review required.
+				57 text 01
+				58 text MANDATE CONFIRMED
+				59 text USER
+				60 text 16:26:41
+				61 text User confirmed the structured spending mandate.
+				62 text 02
+				63 text RESEARCH STARTED
+				64 text AGENT
+				65 text 16:26:41
+				66 text Bounded research using Channel3.
+				67 text 03
+				68 text PRODUCT SEARCHED
+				69 text AGENT
+				70 text 16:26:46
+				71 text Searched Channel3: computer monitors Channel3 USD
+				72 text 04
+				73 text PRODUCTS FOUND
+				74 text AGENT
+				75 text 16:26:46
+				76 text 30 results normalized; duplicates removed.
+				77 text 05
+				78 text CANDIDATES FILTERED
+				79 text POLICY ENGINE
+				80 text 16:26:49
+				81 text Hard eligibility evaluated before deterministic weighted ranking.
+				82 text 06
+				83 text BASKET PROPOSED
+				84 text AGENT
+				85 text 16:26:55
+				86 text Highest-ranked eligible single-product basket selected.
+				87 container
+					88 text 5b2eb7e719b0ac17651e …
+				89 text 07
+				90 text POLICY VALIDATED
+				91 text POLICY ENGINE
+				92 text 16:26:55
+				93 text Financial and product rules recomputed from normalized evidence.
+				94 container
+					95 text 5b2eb7e719b0ac17651e …
+				96 text 08
+				97 text POLICY VALIDATED
+				98 text POLICY ENGINE
+				99 text 16:27:01
+				100 text Purchase is safe to present for human approval.
+				101 container
+					102 text 5b2eb7e719b0ac17651e …
+				103 text 09
+				104 text PAYMENT BLOCKED
+				105 text POLICY ENGINE
+				106 text 16:27:46
+				107 text Hard constraints failed. No payment capability issued.
+				108 container
+					109 text 0ab099bf33064b0e6929 …
+				110 text 10
+				111 text POLICY VALIDATED
+				112 text POLICY ENGINE
+				113 text 16:28:04
+				114 text Purchase is safe to present for human approval.
+				115 container
+					116 text 5b2eb7e719b0ac17651e …
+				117 text 11
+				118 text USER APPROVED
+				119 text USER
+				120 text 16:28:43
+				121 text User reviewed and approved this exact basket fingerprint.
+				122 container
+					123 text 5b2eb7e719b0ac17651e …
+				124 text 12
+				125 text PAYPAL ORDER CREATED
+				126 text PAYPAL
+				127 text 16:28:48
+				128 text Real PayPal Sandbox order created for the approved basket.
+				129 container
+					130 text 5b2eb7e719b0ac17651e …
+				131 text 13
+				132 text PAYMENT CANCELLED
+				133 text USER
+				134 text 16:30:59
+				135 text User returned through the PayPal cancellation flow.
+				136 container
+					137 text 5b2eb7e719b0ac17651e …
+				138 text 14
+				139 text POLICY VALIDATED
+				140 text POLICY ENGINE
+				141 text 16:33:19
+				142 text Purchase is safe to present for human approval.
+				143 container
+					144 text 5b2eb7e719b0ac17651e …
+				145 text 15
+				146 text APPROVAL INVALIDATED
+				147 text USER
+				148 text 16:33:20
+				149 text Basket selection changed. A new review is required.
+				150 text 16
+				151 text USER APPROVED
+				152 text USER
+				153 text 16:33:51
+				154 text User reviewed and approved this exact basket fingerprint.
+				155 container
+					156 text 5b2eb7e719b0ac17651e …
+				157 text 17
+				158 text PAYPAL ORDER CREATED
+				159 text PAYPAL
+				160 text 16:33:53
+				161 text Real PayPal Sandbox order created for the approved basket.
+				162 container
+					163 text 5b2eb7e719b0ac17651e …
+				164 text 18
+				165 text PAYMENT CAPTURED
+				166 text PAYPAL
+				167 text 16:34:44
+				168 text Sandbox capture 8JG393861X927505V confirmed by PayPal.
+				169 container
+					170 text 5b2eb7e719b0ac17651e …
+				171 text 19
+			42 container
+				43 text Policy enforcement is deterministic. BoundPay  /  Intelligence with boundaries
+
+The focused UI element is 36 button Audit trail

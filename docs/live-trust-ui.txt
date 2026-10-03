@@ -1,0 +1,361 @@
+Browser tab: 3, Title: "BoundPay — Procurement inside your rules", URL: "https://boundpay.vercel.app/mission?demo=trust".
+0 AXWebArea BoundPay — Procurement inside your rules, URL: boundpay.vercel.app/mission?demo=trust
+	1 link Description: Skip to workspace, Value: boundpay.vercel.app/mission?demo=trust#workspace-main
+	2 container
+		3 link Description: BoundPay home, Value: boundpay.vercel.app/
+		4 text Procurement workspace Equip engineering team with 27-inch USB-C monitors
+		5 button SANDBOX ENVIRONMENT
+	6 container
+		7 text WORKSPACE
+		8 button Purchasing mission
+		9 button Product comparison
+		10 button Policy Guard
+		11 button Audit trail
+		12 button Agent trace
+		13 text RECENT MISSIONS
+		55 button Equip engineering team with 27-inch USB-C monitors
+		56 button PayPal Sandbox catalog-subtotal test for 12 computer monitors
+		57 button Equip engineering team with 27-inch monitors
+		58 button Equip our 12-person engineering team with 27-inch monitors
+		59 button Equip our 12-person engineering team with 27-inch USB-C monitors
+		18 button New mission
+		19 text Your rules. Enforced. AI recommends.
+		20 text You authorize.
+		21 button Integration status
+	22 container workspace-main
+		54 text Mission Mandate Research 04 Verify 05 Approve 06 Pay & audit MISSION /  9FD78260
+		60 heading Equip engineering team with 27-inch USB-C monitors, Value: 1
+			61 text Equip engineering team with 27-inch USB-C monitors
+		62 container
+			63 text 12  units  · $3,000.00  budget  · Delivery by 2026-10-09
+		64 button Edit mandate
+		65 button Compare products 30
+			66 text Compare products
+			67 text 30
+		68 button Policy Guard
+		69 button Audit trail
+		70 button Agent trace
+		71 text RESEARCH COMPLETE
+		72 text 30
+		73 text evaluated
+		74 text 0
+		75 text eligible
+		76 text 7
+		77 text rejected
+		78 text 23
+		79 text need evidence
+		80 text EVIDENCE INSUFFICIENT — PAYMENT BLOCKED
+		81 text Required facts are not proven by the source. Unknown is never treated as true. Review the missing facts below or run Demo A for a catalog-only Sandbox test.
+		82 text field (settable) Filter products
+		83 button Eligible only
+		84 button Toggle compact grid
+		85 table
+			86 container
+				87 row PRODUCT / MERCHANT UNIT PRICE BASKET TOTAL RATING DELIVERY FEATURES POLICY
+					88 cell
+						89 text PRODUCT / MERCHANT
+					90 cell
+						91 text UNIT PRICE
+					92 cell
+						93 text BASKET TOTAL
+					94 cell
+						95 text RATING
+					96 cell
+						97 text DELIVERY
+					98 cell
+						99 text FEATURES
+					100 cell
+						101 text POLICY
+				102 row (selectable) 27" 16:9 4K UHD IPS LCD Monitor with USB-C Dock, Built-In Speakers adorama.com $48.00 $576.00 Unknown Unknown ?″ · USB-C ? ? Needs evidence
+					103 cell
+						104 text 27" 16:9 4K UHD IPS LCD Monitor with USB-C Dock, Built-In Speakers
+						105 text adorama.com
+					106 cell
+						107 text $48.00
+					108 cell
+						109 text $576.00
+					110 cell
+						111 text Unknown
+					112 cell
+						113 text Unknown
+					114 cell
+						115 text ?″ · USB-C ?
+					116 cell
+						117 text ? Needs evidence
+				118 row (selectable) PRO MP272 E14C Monitor bestbuy.com $134.99 $1,619.88 Unknown Unknown ?″ · USB-C ? ? Needs evidence
+					119 cell
+						120 text PRO MP272 E14C Monitor
+						121 text bestbuy.com
+					122 cell
+						123 text $134.99
+					124 cell
+						125 text $1,619.88
+					126 cell
+						127 text Unknown
+					128 cell
+						129 text Unknown
+					130 cell
+						131 text ?″ · USB-C ?
+					132 cell
+						133 text ? Needs evidence
+				134 row (selectable) Gaming Monitor walmart.com $139.00 $1,668.00 Unknown Unknown ?″ · USB-C ? ? Needs evidence
+					135 cell
+						136 text Gaming Monitor
+						137 text walmart.com
+					138 cell
+						139 text $139.00
+					140 cell
+						141 text $1,668.00
+					142 cell
+						143 text Unknown
+					144 cell
+						145 text Unknown
+					146 cell
+						147 text ?″ · USB-C ?
+					148 cell
+						149 text ? Needs evidence
+				150 row (selectable) PRO MP272 E14C Monitor us-store.msi.com $139.99 $1,679.88 Unknown Unknown ?″ · USB-C ? ? Needs evidence
+					151 cell
+						152 text PRO MP272 E14C Monitor
+						153 text us-store.msi.com
+					154 cell
+						155 text $139.99
+					156 cell
+						157 text $1,679.88
+					158 cell
+						159 text Unknown
+					160 cell
+						161 text Unknown
+					162 cell
+						163 text ?″ · USB-C ?
+					164 cell
+						165 text ? Needs evidence
+				166 row (selectable) L27-4C Computer Monitor macys.com $144.99 $1,739.88 Unknown Unknown ?″ · USB-C ? ? Needs evidence
+					167 cell
+						168 text L27-4C Computer Monitor
+						169 text macys.com
+					170 cell
+						171 text $144.99
+					172 cell
+						173 text $1,739.88
+					174 cell
+						175 text Unknown
+					176 cell
+						177 text Unknown
+					178 cell
+						179 text ?″ · USB-C ?
+					180 cell
+						181 text ? Needs evidence
+				182 row (selectable) HP Series 5 Pro 527pf 27" Full HD 120 Hz Monitor bhphotovideo.com $149.00 $1,788.00 Unknown Unknown ?″ · USB-C ? ? Needs evidence
+					183 cell
+						184 text HP Series 5 Pro 527pf 27" Full HD 120 Hz Monitor
+						185 text bhphotovideo.com
+					186 cell
+						187 text $149.00
+					188 cell
+						189 text $1,788.00
+					190 cell
+						191 text Unknown
+					192 cell
+						193 text Unknown
+					194 cell
+						195 text ?″ · USB-C ?
+					196 cell
+						197 text ? Needs evidence
+				198 row (selectable) Dell 27 Monitor dell.com $149.99 $1,799.88 Unknown Unknown ?″ · USB-C ? ? Needs evidence
+					199 cell
+						200 text Dell 27 Monitor
+						201 text dell.com
+					202 cell
+						203 text $149.99
+					204 cell
+						205 text $1,799.88
+					206 cell
+						207 text Unknown
+					208 cell
+						209 text Unknown
+					210 cell
+						211 text ?″ · USB-C ?
+					212 cell
+						213 text ? Needs evidence
+				214 row (selectable) Pro Series 4K UHD IPS Monitor bhphotovideo.com $159.99 $1,919.88 Unknown Unknown ?″ · USB-C ? ? Needs evidence
+					215 cell
+						216 text Pro Series 4K UHD IPS Monitor
+						217 text bhphotovideo.com
+					218 cell
+						219 text $159.99
+					220 cell
+						221 text $1,919.88
+					222 cell
+						223 text Unknown
+					224 cell
+						225 text Unknown
+					226 cell
+						227 text ?″ · USB-C ?
+					228 cell
+						229 text ? Needs evidence
+				230 row (selectable) Pro Series 4K UHD IPS Monitor bestbuy.com $162.99 $1,955.88 Unknown Unknown ?″ · USB-C ? ? Needs evidence
+					231 cell
+						232 text Pro Series 4K UHD IPS Monitor
+						233 text bestbuy.com
+					234 cell
+						235 text $162.99
+					236 cell
+						237 text $1,955.88
+					238 cell
+						239 text Unknown
+					240 cell
+						241 text Unknown
+					242 cell
+						243 text ?″ · USB-C ?
+					244 cell
+						245 text ? Needs evidence
+				246 row (selectable) 27 Inch QHD IPS 100Hz USB-C PD 15W Monitor with Tilt/Height Stand lg.com $169.99 $2,039.88 Unknown Unknown ?″ · USB-C ? ? Needs evidence
+					247 cell
+						248 text 27 Inch QHD IPS 100Hz USB-C PD 15W Monitor with Tilt/Height Stand
+						249 text lg.com
+					250 cell
+						251 text $169.99
+					252 cell
+						253 text $2,039.88
+					254 cell
+						255 text Unknown
+					256 cell
+						257 text Unknown
+					258 cell
+						259 text ?″ · USB-C ?
+					260 cell
+						261 text ? Needs evidence
+				262 row (selectable) Vero 27" FHD USB-C Monitor bestbuy.com $199.99 $2,399.88 Unknown Unknown ?″ · USB-C ? ? Needs evidence
+					263 cell
+						264 text Vero 27" FHD USB-C Monitor
+						265 text bestbuy.com
+					266 cell
+						267 text $199.99
+					268 cell
+						269 text $2,399.88
+					270 cell
+						271 text Unknown
+					272 cell
+						273 text Unknown
+					274 cell
+						275 text ?″ · USB-C ?
+					276 cell
+						277 text ? Needs evidence
+				278 row (selectable) EW270Q benq.com $199.99 $2,399.88 Unknown Unknown ?″ · USB-C ? ? Needs evidence
+					279 cell
+						280 text EW270Q
+						281 text benq.com
+					282 cell
+						283 text $199.99
+					284 cell
+						285 text $2,399.88
+					286 cell
+						287 text Unknown
+					288 cell
+						289 text Unknown
+					290 cell
+						291 text ?″ · USB-C ?
+					292 cell
+						293 text ? Needs evidence
+				294 row (selectable) EW270Q adorama.com $199.99 $2,399.88 Unknown Unknown ?″ · USB-C ? ? Needs evidence
+					295 cell
+						296 text EW270Q
+						297 text adorama.com
+					298 cell
+						299 text $199.99
+					300 cell
+						301 text $2,399.88
+					302 cell
+						303 text Unknown
+					304 cell
+						305 text Unknown
+					306 cell
+						307 text ?″ · USB-C ?
+					308 cell
+						309 text ? Needs evidence
+				310 row (selectable) Pro Series 4K UHD IPS Monitor us-store.msi.com $199.99 $2,399.88 Unknown Unknown ?″ · USB-C ? ? Needs evidence
+					311 cell
+						312 text Pro Series 4K UHD IPS Monitor
+						313 text us-store.msi.com
+					314 cell
+						315 text $199.99
+					316 cell
+						317 text $2,399.88
+					318 cell
+						319 text Unknown
+					320 cell
+						321 text Unknown
+					322 cell
+						323 text ?″ · USB-C ?
+					324 cell
+						325 text ? Needs evidence
+				326 row (selectable) CB272K Bmiprux 27" 4K Monitor bhphotovideo.com $209.99 $2,519.88 Unknown Unknown ?″ · USB-C ? ? Needs evidence
+					327 cell
+						328 text CB272K Bmiprux 27" 4K Monitor
+						329 text bhphotovideo.com
+					330 cell
+						331 text $209.99
+					332 cell
+						333 text $2,519.88
+					334 cell
+						335 text Unknown
+					336 cell
+						337 text Unknown
+					338 cell
+						339 text ?″ · USB-C ?
+					340 cell
+						341 text ? Needs evidence
+				342 row (selectable) ViewSonic VX2767U-2K 27" 16:9 2K QHD USB-C IPS LED HDR Monitor staples.com $219.99 $2,639.88 Unknown Unknown ?″ · USB-C ? ? Needs evidence
+					343 cell
+						344 text ViewSonic VX2767U-2K 27" 16:9 2K QHD USB-C IPS LED HDR Monitor
+						345 text staples.com
+					346 cell
+						347 text $219.99
+					348 cell
+						349 text $2,639.88
+					350 cell
+						351 text Unknown
+					352 cell
+						353 text Unknown
+					354 cell
+						355 text ?″ · USB-C ?
+					356 cell
+						357 text ? Needs evidence
+				358 row (selectable) ViewSonic VX2767U-2K 27" 16:9 2K QHD USB-C IPS LED HDR Monitor bhphotovideo.com $229.99 $2,759.88 Unknown Unknown ?″ · USB-C ? ? Needs evidence
+					359 cell
+						360 text ViewSonic VX2767U-2K 27" 16:9 2K QHD USB-C IPS LED HDR Monitor
+						361 text bhphotovideo.com
+					362 cell
+						363 text $229.99
+					364 cell
+						365 text $2,759.88
+					366 cell
+						367 text Unknown
+					368 cell
+						369 text Unknown
+					370 cell
+						371 text ?″ · USB-C ?
+					372 cell
+						373 text ? Needs evidence
+		374 text AG Grid Community  ·  Sort, filter, pin columns & select a row Integer-cent totals
+		375 container
+			376 text CANDIDATE UNDER REVIEW
+			377 heading 27" 16:9 4K UHD IPS LCD Monitor with USB-C Dock, Built-In Speakers, Value: 3
+				378 text 27" 16:9 4K UHD IPS LCD Monitor with USB-C Dock, Built-In Speakers
+			379 text UltraClear 4K UHD (3840x2160) resolution · Built-in USB-C docking station · SmartErgoBase for ergonomic adjustments · LowBlue Mode and Flicker-free technology · PowerSensor for energy savings · G-Sync (NVIDIA Adaptive Sync) compatible · 10-bit Color at 60 Hz LIVE CHANNEL3 LISTING
+			380 link Description: Source listing, Value: buy.trychannel3.com/DBIFt9J-T9Fg-Nzg27b?o=01KCAPN3T173G7SWA8XE9EZ4WM&aid=01M413QW0H0RXGJ1JQTGNMQJRC
+			381 button Why this?
+			382 button Review quote evidence
+		383 text Eligibility first. Ranking second. A high score never overrides a hard rule.
+		384 container
+			385 heading Policy Guard, Value: 3
+				386 text Policy Guard
+			387 text NEEDS EVIDENCE Proposed spend $576.00 of  $3,000.00  authorized Remaining headroom $2,424.00 Total budget $576.00 PASS Quantity 12 units PASS Currency USD PASS Display size Not provided by source VERIFY Minimum rating Not provided by source VERIFY USB-C Not provided by source VERIFY Delivery No committed date from source VERIFY Merchant policy adorama.com PASS Final cost evidence Retail price only; taxes/shipping unknown VERIFY Availability Exact quantity not provided by source VERIFY Human approval Required before checkout REQUIRED EVIDENCE INSUFFICIENT — PAYMENT BLOCKED Cannot verify: Display size, Minimum rating, USB-C, Delivery, Final cost evidence, Availability. Unknown is never treated as true.
+			388 button Review missing evidence
+			389 text 96f21405083a … 68d960
+			390 button (disabled) Review payment mandate
+		52 container
+			53 text Policy enforcement is deterministic. BoundPay  /  Intelligence with boundaries
+
+The focused UI element is 0 AXWebArea BoundPay — Procurement inside your rules, URL: boundpay.vercel.app/mission?demo=trust

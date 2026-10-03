@@ -44,10 +44,11 @@ import type {
   SpendingMandate,
 } from '@/lib/domain';
 import { audit } from '@/lib/domain';
-import { DEMO_REQUEST, demoMandate } from '@/lib/demo';
+import { DEMO_REQUEST, LIVE_DEMO_REQUEST, demoMandate } from '@/lib/demo';
 import { money } from '@/lib/money';
 import { Brand } from './brand';
 import { Button } from './ui/button';
+import { AuthorityModel } from './authority-model';
 import { Drawer } from './ui/drawer';
 import { MandateEditor } from './mandate-editor';
 import { PolicyPanel } from './policy-panel';
@@ -98,7 +99,9 @@ export default function Workspace() {
   const demo = params.get('demo') === '1';
   const [phase, setPhase] = useState<Phase>('mission');
   const [tab, setTab] = useState<Tab>('compare');
-  const [text, setText] = useState(demo ? DEMO_REQUEST : '');
+  const [text, setText] = useState(
+    demo ? LIVE_DEMO_REQUEST : params.get('demo') === 'trust' ? DEMO_REQUEST : '',
+  );
   const [mandate, setMandate] = useState<SpendingMandate | null>(null);
   const [result, setResult] = useState<ResearchResult | null>(null);
   const [proposal, setProposal] = useState<Proposal | null>(null);
@@ -642,6 +645,15 @@ export default function Workspace() {
               </button>
             </div>
           )}
+          {mandate?.executionScope === 'sandbox_catalog' && (
+            <div className="catalog-scope-notice">
+              <LockKeyhole size={15} />
+              <span>
+                SANDBOX CATALOG SUBTOTAL — Exact listed amount only. Stock, delivery, ratings and
+                landed cost are not verified. No retail purchase or fulfillment.
+              </span>
+            </div>
+          )}
           <AnimatePresence mode="wait">
             <motion.div
               className="phase-content"
@@ -690,6 +702,17 @@ export default function Workspace() {
                       </Button>
                     </div>
                   </div>
+                  <div className="demo-scenarios">
+                    <button disabled={busy} onClick={() => setText(LIVE_DEMO_REQUEST)}>
+                      <strong>DEMO A — LIVE CHECKOUT</strong>
+                      <span>Catalog subtotal · category · USD · $3,000 · approval</span>
+                    </button>
+                    <button disabled={busy} onClick={() => setText(DEMO_REQUEST)}>
+                      <strong>DEMO B — TRUST BOUNDARY</strong>
+                      <span>Rating · delivery · stock · landed cost must be proven</span>
+                    </button>
+                  </div>
+                  <AuthorityModel />
                   <div className="example-request">
                     <div>
                       <span className="eyebrow">TRY A MISSION</span>
@@ -870,19 +893,27 @@ export default function Workspace() {
                             </strong>{' '}
                             eligible <span className="summary-divider" />{' '}
                             <strong className="danger-text">
-                              {result.candidates.filter((p) => !p.eligible).length}
+                              {result.candidates.filter((p) => p.status === 'rejected').length}
                             </strong>{' '}
-                            rejected
+                            rejected <span className="summary-divider" />{' '}
+                            <strong className="amber">
+                              {
+                                result.candidates.filter((p) => p.status === 'needs_evidence')
+                                  .length
+                              }
+                            </strong>{' '}
+                            need evidence
                           </div>
                         </div>
                         {!result.candidates.some((p) => p.eligible) && (
                           <div className="no-eligible">
                             <ShieldCheck size={18} />
                             <div>
-                              <strong>No products satisfied every hard requirement.</strong>
+                              <strong>EVIDENCE INSUFFICIENT — PAYMENT BLOCKED</strong>
                               <p>
-                                Inspect a candidate and review its missing evidence, or edit and
-                                reconfirm your mandate.
+                                Required facts are not proven by the source. Unknown is never
+                                treated as true. Review the missing facts below or run Demo A for a
+                                catalog-only Sandbox test.
                               </p>
                             </div>
                           </div>
@@ -935,7 +966,9 @@ export default function Workspace() {
                                 <span>{p.product.merchant}</span>
                               </div>
                               <span>{money(p.product.unitPrice, mandate.currency)}</span>
-                              <span className={`status-chip ${p.eligible ? 'safe' : 'danger'}`}>
+                              <span
+                                className={`status-chip ${p.eligible ? 'safe' : p.status === 'needs_evidence' ? 'amber-chip' : 'danger'}`}
+                              >
                                 {p.eligible ? '✓ Eligible' : '× Rejected'}
                               </span>
                               <small>
@@ -1014,6 +1047,15 @@ export default function Workspace() {
                             fingerprint={proposal.fingerprint}
                             approved={!!approval}
                             onApprove={() => setDrawer('payment')}
+                            onReviewEvidence={() => setDrawer('evidence')}
+                            onRestore={
+                              result.candidates.some((p) => p.eligible)
+                                ? () => {
+                                    const p = result.candidates.find((p) => p.eligible);
+                                    if (p) void choose(p);
+                                  }
+                                : undefined
+                            }
                             compact
                           />
                         ) : (
@@ -1295,8 +1337,14 @@ export default function Workspace() {
                 <h3>{selected.product.title}</h3>
                 <p>{selected.product.merchant}</p>
               </div>
-              <span className={`status-chip ${selected.eligible ? 'safe' : 'danger'}`}>
-                {selected.eligible ? 'ELIGIBLE' : 'REJECTED'}
+              <span
+                className={`status-chip ${selected.eligible ? 'safe' : selected.status === 'needs_evidence' ? 'amber-chip' : 'danger'}`}
+              >
+                {selected.eligible
+                  ? 'ELIGIBLE'
+                  : selected.status === 'needs_evidence'
+                    ? 'NEEDS EVIDENCE'
+                    : 'REJECTED'}
               </span>
             </div>
             <p className="recommendation-copy">
@@ -1316,10 +1364,10 @@ export default function Workspace() {
             <p className="formula">
               30% value + 25% quality + 20% delivery + 15% preferences + 10% merchant.
             </p>
-            {selected.failures.length > 0 && (
+            {(selected.failures.length > 0 || selected.missingEvidence.length > 0) && (
               <div className="failure-list">
-                <h3>Hard-rule failures</h3>
-                {selected.failures.map((f) => (
+                <h3>Unmet requirements</h3>
+                {[...selected.failures, ...selected.missingEvidence].map((f) => (
                   <p key={f}>
                     <X size={13} />
                     {f}
@@ -1346,7 +1394,9 @@ export default function Workspace() {
                   <div key={p.product.id}>
                     <div>
                       <strong>{p.product.title}</strong>
-                      <span>{p.eligible ? 'Eligible' : p.failures[0]}</span>
+                      <span>
+                        {p.eligible ? 'Eligible' : (p.failures[0] ?? p.missingEvidence[0])}
+                      </span>
                     </div>
                     <span>{p.score}/100</span>
                   </div>
@@ -1388,7 +1438,12 @@ export default function Workspace() {
               <div className="payment-total">
                 <span>Total purchase amount</span>
                 <strong>{money(proposal.policy.total, mandate.currency)}</strong>
-                <small>{mandate.currency} · final per-unit quote × quantity</small>
+                <small>
+                  {mandate.currency} ·{' '}
+                  {mandate.executionScope === 'sandbox_catalog'
+                    ? 'catalog price × quantity; Sandbox test only'
+                    : 'final per-unit quote × quantity'}
+                </small>
               </div>
               <dl className="payment-facts">
                 <div>

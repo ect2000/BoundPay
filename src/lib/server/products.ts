@@ -31,6 +31,7 @@ const PriceSchema = z.object({
 const ChannelProductSchema = z.object({
   id: z.string(),
   title: z.string(),
+  category: z.object({ slug: z.string() }).nullable().optional(),
   description: z.string().nullable().optional(),
   images: z
     .array(z.object({ url: z.string(), cleaned_url: z.string().nullable().optional() }))
@@ -59,6 +60,7 @@ export function normalizeChannelProduct(raw: unknown): ProductCandidate[] {
         ProductSchema.parse({
           id: `${p.id}::${index}`,
           title: p.title.slice(0, 250),
+          category: p.category?.slug ?? null,
           merchant: offer.domain.slice(0, 100),
           url: offer.url,
           unitPrice: minorUnits(String(amount)),
@@ -83,7 +85,7 @@ export function normalizeChannelProduct(raw: unknown): ProductCandidate[] {
             observedAt: new Date().toISOString(),
             description: (p.description ?? '').slice(0, 2000),
             notes: [
-              'Live Channel3 listing. Rating, delivery, quantity and landed cost need a verified merchant quote.',
+              'Live Channel3 category, merchant and catalog price. Rating, committed delivery, exact stock and landed cost are not provided.',
             ],
             landedCostVerified: false,
           },
@@ -148,10 +150,15 @@ export class Channel3ProductProvider implements ProductProvider {
           limit: Math.min(20, config().MAX_PRODUCT_RESULTS),
           config: { ...this.locale(mandate), mode: 'default' },
           filters: {
-            price: {
-              max_price:
-                Math.min(mandate.maxUnit ?? Infinity, mandate.maxTotal / mandate.quantity) / 100,
-            },
+            ...(mandate.executionScope === 'sandbox_catalog'
+              ? {}
+              : {
+                  price: {
+                    max_price:
+                      Math.min(mandate.maxUnit ?? Infinity, mandate.maxTotal / mandate.quantity) /
+                      100,
+                  },
+                }),
             ...(mandate.merchantPolicy.allow.length
               ? { website_ids: mandate.merchantPolicy.allow }
               : {}),

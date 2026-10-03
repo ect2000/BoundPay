@@ -38,6 +38,8 @@ export const MandateSchema = z
     title: z.string().min(1).max(120),
     description: z.string().min(1).max(4000),
     category: z.string().min(1).max(100),
+    requiredCategory: z.string().min(1).max(100).nullable().default(null),
+    executionScope: z.enum(['verified_purchase', 'sandbox_catalog']).default('verified_purchase'),
     currency: z.preprocess((v) => (typeof v === 'string' ? v.toUpperCase() : v), CurrencySchema),
     quantity: z.number().int().min(1).max(100),
     maxTotal: z.number().int().min(1).max(100_000_000),
@@ -60,6 +62,7 @@ export const ProductSchema = z
   .object({
     id: z.string().min(1).max(180),
     title: z.string().min(1).max(250),
+    category: z.string().nullable().default(null),
     merchant: z.string().min(1).max(100),
     url: z
       .string()
@@ -102,7 +105,7 @@ export type Basket = z.infer<typeof BasketSchema>;
 export type PolicyEvaluation = {
   rule: string;
   label: string;
-  status: 'PASS' | 'FAIL' | 'REQUIRES_APPROVAL';
+  status: 'PASS' | 'FAIL' | 'NEEDS_EVIDENCE' | 'REQUIRES_APPROVAL';
   expected: string;
   observed: string;
   explanation: string;
@@ -116,6 +119,8 @@ export type PolicyResult = {
 export type RankedProduct = {
   product: ProductCandidate;
   eligible: boolean;
+  status: 'eligible' | 'needs_evidence' | 'rejected';
+  missingEvidence: string[];
   failures: string[];
   score: number;
   scores: {
@@ -192,6 +197,7 @@ export type ResearchResult = {
     toolCalls: number;
     evaluated: number;
     rejected: number;
+    needsEvidence: number;
     eligible: number;
     constraintsChecked: number;
   };

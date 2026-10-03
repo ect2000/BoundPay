@@ -16,7 +16,7 @@ async function screenshot(page: Page, name: string) {
   });
 }
 async function research(page: Page) {
-  await page.goto('/mission?demo=1');
+  await page.goto('/mission?demo=trust');
   await page.getByRole('button', { name: 'Extract mandate' }).click();
   await expect(page.getByRole('heading', { name: 'I understood your request as:' })).toBeVisible();
   await page.getByRole('button', { name: 'Confirm mandate & research' }).click();
@@ -32,6 +32,7 @@ test('complete honest local demo with genuine policy blocking, approval and audi
   await expect(page.getByRole('heading', { level: 1 })).toContainText('AI procurement');
   await screenshot(page, '01-landing');
   await page.getByRole('link', { name: 'Run demo', exact: true }).click();
+  await page.getByRole('button', { name: 'DEMO B — TRUST BOUNDARY' }).click();
   await expect(page.getByLabel('Purchasing request')).toContainText('12-person');
   await screenshot(page, '02-mission');
   await page.getByRole('button', { name: 'Extract mandate' }).click();
@@ -67,7 +68,7 @@ test('complete honest local demo with genuine policy blocking, approval and audi
     .locator('.ag-cell')
     .first()
     .click();
-  await expect(page.getByText('PAYMENT BLOCKED', { exact: true })).toBeVisible();
+  await expect(page.getByText('PAYMENT BLOCKED', { exact: true }).first()).toBeVisible();
   await expect(page.getByRole('button', { name: 'Review payment mandate' })).toBeDisabled();
   await screenshot(page, '11-payment-blocked');
   await page
@@ -119,7 +120,7 @@ test('responsive layout and keyboard review at tablet and mobile widths', async 
 test('server rejects forged policy, cross-origin writes, stale approval and missing capture authority', async ({
   page,
 }) => {
-  await page.goto('/mission?demo=1');
+  await page.goto('/mission?demo=trust');
   const badOrigin = await page.request.post('/api/approve', {
     headers: { Origin: 'https://untrusted.example' },
     data: { token: 'fake', reviewed: true },
@@ -175,4 +176,36 @@ test('server rejects forged policy, cross-origin writes, stale approval and miss
   });
   expect(result.blocked).toBe(403);
   expect(result.nonce).toBe(result.retryNonce);
+});
+
+test('catalog-subtotal demo reaches a mandate and preserves genuine over-budget blocking', async ({
+  page,
+}) => {
+  await page.goto('/mission?demo=1');
+  await expect(page.getByLabel('Purchasing request')).toContainText('catalog-subtotal test');
+  await page.getByRole('button', { name: 'Extract mandate' }).click();
+  await expect(page.getByLabel('Authorization scope')).toHaveValue('sandbox_catalog');
+  await expect(page.getByLabel('Minimum rating', { exact: true })).toHaveValue('');
+  await page.getByRole('button', { name: 'Confirm mandate & research' }).click();
+  await expect(page.getByText('FIXTURE RESEARCH COMPLETE')).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Review payment mandate' })).toBeEnabled();
+  await page
+    .locator('.ag-row')
+    .filter({ hasText: 'Summit Pro 27 4K' })
+    .locator('.ag-cell')
+    .first()
+    .click();
+  await expect(page.locator('.over-budget-moment')).toContainText('$3,120.00');
+  await expect(page.locator('.over-budget-moment')).toContainText(
+    '+$120.00 over authorized mandate',
+  );
+  await expect(page.getByRole('button', { name: 'Review payment mandate' })).toBeDisabled();
+  await screenshot(page, '14-over-budget-3120-local');
+  await page.getByRole('button', { name: 'Restore compliant recommendation' }).click();
+  await expect(page.getByRole('button', { name: 'Review payment mandate' })).toBeEnabled();
+  await page.getByRole('button', { name: 'Review payment mandate' }).click();
+  await expect(
+    page.getByText('catalog price × quantity; Sandbox test only', { exact: false }),
+  ).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Approve this purchase' })).toBeDisabled();
 });

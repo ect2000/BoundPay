@@ -13,17 +13,35 @@ import { basketTotal, lineTotal, money } from './money';
 
 function productRules(p: ProductCandidate, m: SpendingMandate): PolicyEvaluation[] {
   const rows: PolicyEvaluation[] = [];
-  const check = (rule: string, label: string, pass: boolean, expected: string, observed: string) =>
+  const check = (
+    rule: string,
+    label: string,
+    pass: boolean,
+    expected: string,
+    observed: string,
+    missing = false,
+  ) =>
     rows.push({
       rule,
       label,
-      status: pass ? 'PASS' : 'FAIL',
+      status: missing ? 'NEEDS_EVIDENCE' : pass ? 'PASS' : 'FAIL',
       expected,
       observed,
-      explanation: pass
-        ? `${label} matches your confirmed mandate.`
-        : `${label} is outside your mandate or lacks verified evidence.`,
+      explanation: missing
+        ? `${label} cannot be verified from available evidence.`
+        : pass
+          ? `${label} matches your confirmed mandate.`
+          : `${label} is outside your mandate or lacks verified evidence.`,
     });
+  if (m.requiredCategory)
+    check(
+      'CATEGORY',
+      'Product category',
+      p.category === m.requiredCategory,
+      m.requiredCategory,
+      p.category ?? 'Not provided by source',
+      p.category === null,
+    );
   check('CURRENCY', 'Currency', p.currency === m.currency, m.currency, p.currency);
   if (m.maxUnit)
     check(
@@ -40,7 +58,8 @@ function productRules(p: ProductCandidate, m: SpendingMandate): PolicyEvaluation
         'Display size',
         p.displaySize !== null && p.displaySize >= Number(c.value),
         `At least ${c.value} inches`,
-        p.displaySize === null ? 'Unknown' : `${p.displaySize} inches`,
+        p.displaySize === null ? 'Not provided by source' : `${p.displaySize} inches`,
+        p.displaySize === null,
       );
     if (c.type === 'usb_c')
       check(
@@ -48,7 +67,8 @@ function productRules(p: ProductCandidate, m: SpendingMandate): PolicyEvaluation
         'USB-C',
         p.usbC !== null && p.usbC === c.value,
         c.value ? 'Required' : 'Not required',
-        p.usbC === null ? 'Unknown' : p.usbC ? 'Included' : 'Missing',
+        p.usbC === null ? 'Not provided by source' : p.usbC ? 'Included' : 'Missing',
+        p.usbC === null,
       );
     if (c.type === 'rating')
       check(
@@ -56,7 +76,8 @@ function productRules(p: ProductCandidate, m: SpendingMandate): PolicyEvaluation
         'Minimum rating',
         p.rating !== null && p.rating >= Number(c.value),
         `${c.value} / 5`,
-        p.rating === null ? 'Unknown' : `${p.rating} / 5`,
+        p.rating === null ? 'Not provided by source' : `${p.rating} / 5`,
+        p.rating === null,
       );
     if (c.type === 'feature')
       check(
@@ -73,7 +94,16 @@ function productRules(p: ProductCandidate, m: SpendingMandate): PolicyEvaluation
       'Delivery',
       p.deliveryDate !== null && p.deliveryDate <= m.deliveryDeadline,
       `By ${m.deliveryDeadline}`,
-      p.deliveryDate ?? 'Unknown',
+      p.deliveryDate ?? 'No committed date from source',
+      p.deliveryDate === null,
+    );
+  if (m.executionScope === 'sandbox_catalog')
+    check(
+      'CATALOG_AMOUNT',
+      'Sandbox catalog subtotal',
+      true,
+      'Exact listed price × requested quantity; no retail fulfillment',
+      `${money(p.unitPrice, p.currency)} per unit from ${p.merchant}`,
     );
   const merchant = p.merchant.trim().toLowerCase();
   check(
@@ -85,15 +115,17 @@ function productRules(p: ProductCandidate, m: SpendingMandate): PolicyEvaluation
     m.merchantPolicy.allow.join(', ') || 'Any non-blocked merchant',
     p.merchant,
   );
-  check(
-    'LANDED_COST',
-    'Final cost evidence',
-    p.evidence.landedCostVerified,
-    'Taxes and shipping included / verified',
-    p.evidence.landedCostVerified
-      ? 'Verified total quote'
-      : 'Retail price only; taxes/shipping unknown',
-  );
+  if (m.executionScope === 'verified_purchase')
+    check(
+      'LANDED_COST',
+      'Final cost evidence',
+      p.evidence.landedCostVerified,
+      'Taxes and shipping included / verified',
+      p.evidence.landedCostVerified
+        ? 'Verified total quote'
+        : 'Retail price only; taxes/shipping unknown',
+      !p.evidence.landedCostVerified,
+    );
   return rows;
 }
 export function evaluatePolicy(mandate: SpendingMandate, basket: Basket): PolicyResult {
@@ -132,14 +164,23 @@ export function evaluatePolicy(mandate: SpendingMandate, basket: Basket): Policy
         explanation: `${item.product.title}: ${r.explanation}`,
       })),
     );
-    evaluations.push({
-      rule: 'STOCK',
-      label: 'Availability',
-      status: item.product.stock !== null && item.product.stock >= item.quantity ? 'PASS' : 'FAIL',
-      expected: `${item.quantity} available`,
-      observed: item.product.stock === null ? 'Unknown' : `${item.product.stock} available`,
-      explanation: 'Available quantity must be verified before payment.',
-    });
+    if (m.executionScope === 'verified_purchase')
+      evaluations.push({
+        rule: 'STOCK',
+        label: 'Availability',
+        status:
+          item.product.stock === null
+            ? 'NEEDS_EVIDENCE'
+            : item.product.stock >= item.quantity
+              ? 'PASS'
+              : 'FAIL',
+        expected: `${item.quantity} available`,
+        observed:
+          item.product.stock === null
+            ? 'Exact quantity not provided by source'
+            : `${item.product.stock} available`,
+        explanation: 'Available quantity must be verified before payment.',
+      });
   }
   evaluations.push({
     rule: 'APPROVAL_REQUIRED',
@@ -150,7 +191,7 @@ export function evaluatePolicy(mandate: SpendingMandate, basket: Basket): Policy
     explanation: 'The agent cannot grant spending authority.',
   });
   return {
-    valid: evaluations.every((e) => e.status !== 'FAIL'),
+    valid: evaluations.every((e) => e.status === 'PASS' || e.status === 'REQUIRES_APPROVAL'),
     evaluations,
     total,
     headroom: m.maxTotal - total,
@@ -198,6 +239,14 @@ export function rankProducts(
       return {
         product,
         eligible: policy.valid,
+        status: policy.valid
+          ? ('eligible' as const)
+          : policy.evaluations.some((r) => r.status === 'FAIL')
+            ? ('rejected' as const)
+            : ('needs_evidence' as const),
+        missingEvidence: policy.evaluations
+          .filter((r) => r.status === 'NEEDS_EVIDENCE')
+          .map((r) => `${r.label}: ${r.observed}`),
         failures: policy.evaluations
           .filter((r) => r.status === 'FAIL')
           .map((r) => `${r.label}: ${r.observed}`),
@@ -214,6 +263,7 @@ export function rankProducts(
     .sort(
       (a, b) =>
         Number(b.eligible) - Number(a.eligible) ||
+        Number(a.status === 'rejected') - Number(b.status === 'rejected') ||
         b.score - a.score ||
         a.product.unitPrice - b.product.unitPrice ||
         a.product.id.localeCompare(b.product.id),

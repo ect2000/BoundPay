@@ -23,7 +23,9 @@ Catalog merchants are research sources. The PayPal Sandbox merchant is the owner
 
 ## Evidence boundary
 
-Price and offer URLs come from Channel3. Unknown rating/delivery/stock/final costs fail policy. A user may add an explicit quote attestation. Its field values are validated, its provenance is visible, and it changes the signed snapshot/fingerprint. BoundPay does not claim to independently verify a user-entered quote. Marketing descriptions cannot set budget, features, shipping guarantees, approval or permissions.
+Price, currency, merchant, category and offer URLs come from freshly retrieved Channel3 data. The default `verified_purchase` scope requires stock and landed-cost evidence, as well as all user requirements. The explicitly reviewed `sandbox_catalog` scope authorizes only an exact Sandbox catalog subtotal; it does not assert inventory or retail fulfillment. Any explicitly requested rating/delivery/product fact must still pass. Missing mandatory facts get `NEEDS_EVIDENCE`; proved violations get `FAIL`. Both withhold the payment capability. Scope is included in the purchase fingerprint; the AI cannot silently switch it without an explicit catalog-test request and mandate review.
+
+A user may add an explicit quote attestation. Its field values are validated, its provenance is visible, and it changes the signed snapshot/fingerprint. BoundPay does not claim to independently verify a user-entered quote. Marketing descriptions cannot set budget, features, shipping guarantees, approval or permissions. [Exact demo requirements and evidence](demo-scenarios.md).
 
 ## No-database tradeoffs
 

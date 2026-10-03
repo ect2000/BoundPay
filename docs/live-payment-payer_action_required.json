@@ -1,0 +1,20 @@
+{
+  "verifiedAt": "2026-10-03T14:36:00.763Z",
+  "environment": "PayPal Sandbox",
+  "source": "Authenticated Orders v2 GET; private payer/payee data excluded",
+  "orderId": "4J8275956R087763E",
+  "status": "PAYER_ACTION_REQUIRED",
+  "amount": {
+    "currency_code": "USD",
+    "value": "2950.68",
+    "breakdown": {
+      "item_total": {
+        "currency_code": "USD",
+        "value": "2950.68"
+      }
+    }
+  },
+  "fingerprint": "5b2eb7e719b0ac17651edf429e044883cd76bf6d9def1ed84321e5e0a42f41a6",
+  "exactAmountVerified": true,
+  "captures": []
+}

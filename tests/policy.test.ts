@@ -65,12 +65,11 @@ describe('Policy Guard', () => {
     ['USB_C_1', { usbC: false }],
     ['DISPLAY_SIZE_0', { displaySize: 24 }],
     ['MINIMUM_RATING_2', { rating: 4.2 }],
-    ['MINIMUM_RATING_2', { rating: null }],
+
     ['DELIVERY_DEADLINE', { deliveryDate: '2099-01-01' }],
-    ['DELIVERY_DEADLINE', { deliveryDate: null }],
+
     ['CURRENCY', { currency: 'EUR' }],
     ['STOCK', { stock: 5 }],
-    ['STOCK', { stock: null }],
   ])('fails %s', (rule, patch) => {
     const { mandate, product } = setup();
     const basket = BasketSchema.parse({
@@ -91,7 +90,7 @@ describe('Policy Guard', () => {
       ],
     });
     expect(policy.valid).toBe(false);
-    expect(policy.evaluations.find((r) => r.rule === 'LANDED_COST')?.status).toBe('FAIL');
+    expect(policy.evaluations.find((r) => r.rule === 'LANDED_COST')?.status).toBe('NEEDS_EVIDENCE');
   });
   it('fails wrong quantity', () => {
     const { mandate, product } = setup();

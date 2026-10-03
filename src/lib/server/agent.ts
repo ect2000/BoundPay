@@ -111,7 +111,7 @@ export async function research(
   const ranked = rankProducts(state.candidates, mandate);
   add(
     'FILTER_AND_RANK',
-    `${ranked.filter((p) => p.eligible).length} eligible; ${ranked.filter((p) => !p.eligible).length} rejected by hard rules.`,
+    `${ranked.filter((p) => p.eligible).length} eligible; ${ranked.filter((p) => p.status === 'needs_evidence').length} need evidence; ${ranked.filter((p) => p.status === 'rejected').length} rejected by hard rules.`,
   );
   events.push(
     audit(
@@ -173,7 +173,8 @@ export async function research(
       llmCalls: llm.calls,
       toolCalls: products.calls ?? toolCalls,
       evaluated: ranked.length,
-      rejected: ranked.filter((p) => !p.eligible).length,
+      rejected: ranked.filter((p) => p.status === 'rejected').length,
+      needsEvidence: ranked.filter((p) => p.status === 'needs_evidence').length,
       eligible: ranked.filter((p) => p.eligible).length,
       constraintsChecked:
         state.policyResults?.evaluations.length ??

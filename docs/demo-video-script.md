@@ -1,28 +1,29 @@
-# BoundPay — 2:50 demo script
+# BoundPay — 2:50 live demo script
 
-Use **live integrations** for the final recording. Confirm an eligible, evidence-backed merchant quote beforehand. Use a separate Sandbox buyer. Hide secrets and login credentials. Aim for 2:50 so the video stays below the official three-minute limit. This file is a script, not a produced video.
+Record actual provider calls and actual Sandbox completion. Hide buyer credentials and account details. This is a recording script, not a produced video. [Scenario definitions and verifiable constraints](demo-scenarios.md).
 
-| Time      | Screen                                                    | Narration                                                                                                                                                                        |
-| --------- | --------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 0:00–0:12 | Landing and authority diagram                             | “AI can research a purchase. But giving an AI purchasing power raises a different question: who controls what it's allowed to spend?”                                            |
-| 0:12–0:22 | Mission workspace                                         | “BoundPay separates intelligence from authority. The AI recommends. Your rules and your approval govern money movement.”                                                         |
-| 0:22–0:38 | Prefilled 12-person monitor mission; Extract mandate      | “I need twelve 27-inch USB-C monitors, a $3,000 ceiling, a 4.5 minimum rating, and delivery by Friday. Nothing can be purchased without me.”                                     |
-| 0:38–0:52 | Review and confirm explicit mandate                       | “The AI extracts a draft. I confirm the exact budget, quantity and requirements before they become the agent's boundaries.”                                                      |
-| 0:52–1:09 | Actual streamed research and trace                        | “The bounded agent plans searches and gathers Channel3 candidates. Its tool calls, limits and actual research results stay visible.”                                             |
-| 1:09–1:29 | AG Grid sorting/filtering and rejected candidates         | “Hard eligibility comes before ranking. Unknown evidence fails closed. I can inspect every source and explicitly review a current merchant quote where the catalog lacks facts.” |
-| 1:29–1:43 | Recommended basket and Why this drawer                    | “This basket ranks highest among eligible options. Here are the score components, alternatives and evidence—no unexplained AI score.”                                            |
-| 1:43–1:57 | Select genuinely over-budget candidate, blocked inspector | “An attractive alternative exceeds the budget. Payment is blocked by the server. The AI can recommend; it cannot override policy.”                                               |
-| 1:57–2:13 | Restore compliant basket; Payment mandate                 | “The payment mandate shows merchant, items, final amount, headroom and policy. This fingerprint binds the approval to the complete purchase.”                                    |
-| 2:13–2:27 | Explicit review checkbox, approval, create Sandbox order  | “I review and approve this exact purchase. Changing the basket requires a new review. Only now can BoundPay create a PayPal Sandbox order.”                                      |
-| 2:27–2:40 | PayPal Sandbox buyer approval; return and capture         | “PayPal handles buyer approval. BoundPay rechecks the signed state and exact order amount before capturing. This is Sandbox settlement to our test merchant.”                    |
-| 2:40–2:50 | Actual capture ID and audit, closing brand                | “The audit shows what happened and who authorized it. AI decides what to recommend. Policy decides what's allowed. You decide when money moves. BoundPay.”                       |
+| Time      | Screen                                                         | Narration                                                                                                                                                                         |
+| --------- | -------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 0:00–0:12 | Landing                                                        | “An AI can research a purchase. But a recommendation should never become permission to spend your budget.”                                                                        |
+| 0:12–0:26 | Natural-language Demo A mission                                | “Twelve computer monitors, USD 3,000 maximum. This explicitly authorizes a Sandbox catalog-subtotal test. No retail fulfillment. My approval is always required.”                 |
+| 0:26–0:39 | Real OpenRouter extraction; review scope and rules             | “The AI drafts a mandate. I review the exact category, currency, quantity and ceiling. Ratings, stock and delivery are unverified and are not requirements for this test amount.” |
+| 0:39–0:55 | Real Channel3 research and trace                               | “The bounded agent searches Channel3 and refreshes product details. Every API call and research limit is visible.”                                                                |
+| 0:55–1:10 | Product comparison, ranking and source                         | “Eligibility comes first. Ranking is deterministic. The evidence proves the listed price, source category and merchant; integer-cent math proves the basket amount.”              |
+| 1:10–1:23 | Demo B missing-evidence inspector, prepared separate recording | “For a delivered purchase requiring rating, committed delivery, stock and final cost, missing evidence blocks authorization. Unknown is never treated as true.”                   |
+| 1:23–1:39 | Demo A real over-budget offer                                  | “This real offer totals USD 3,601.56 against USD 3,000. Payment is blocked. AI recommendations cannot override spending policy.”                                                  |
+| 1:39–1:53 | Restore compliant recommendation                               | “We restore the compliant basket: twelve Sharp monitors, USD 2,950.68. Six hard checks pass. The remaining headroom is USD 49.32.”                                                |
+| 1:53–2:08 | Payment mandate and human review                               | “The complete mandate and basket have one fingerprint. I review and approve this exact amount. A changed basket needs a new approval.”                                            |
+| 2:08–2:30 | Real PayPal Sandbox order, buyer approval, return and capture  | “Only after human approval is a PayPal Sandbox order created. The buyer approves privately. BoundPay rechecks the fingerprint and exact amount before capture.”                   |
+| 2:30–2:42 | Actual COMPLETED status, capture ID, audit                     | “Completion comes from PayPal's completed capture. The audit attributes the recommendation, policy, human approval and payment execution.”                                        |
+| 2:42–2:50 | Compact authority model                                        | “AI recommends. Policy validates. You approve. PayPal executes. Intelligence with boundaries.”                                                                                    |
 
-## Recording checklist
+## Recording requirements
 
-- Keep actual API waits visible or edit the recording with an obvious cut; do not invent product arrival, API calls or completion.
-- Show OpenRouter attribution and Channel3 source links. Local fixture modes are development only.
-- If ratings/delivery/stock/landed cost require review, use a real quote and show the **user attestation** provenance.
-- Choose an actually over-budget returned product; do not change the client display to simulate a failure.
-- Capture a real PayPal Sandbox approval and completed capture. Development screenshot `09-paypal.png` is a local simulation, not sufficient final evidence.
-- End on a real order/capture ID and attributed audit. Export the JSON if useful.
-- Use original narration, permitted branding and no unlicensed music. Publish the video on YouTube and paste the URL into Devpost.
+- The amounts above belong to the observed public run on 3 October 2026. A fresh run can return different prices/products. Narrate the actual values on screen.
+- The exact USD 3,120 / USD 120 over-budget example is covered by a genuine local policy calculation on a labeled fixture. Do not present its synthetic price as live Channel3 evidence. The live blocked offer used USD 3,601.56.
+- Capture Demo B separately before recording the payment journey; starting another mission invalidates the active checkout context. Use an obvious cut between scenarios.
+- Preserve real waits or edit with clear cuts. Never fabricate API results, missing catalog evidence, human approval or payment completion.
+- Show the actual order ID, capture ID, currency, amount and audit after successful capture. Until then, keep completion marked pending and do not record a simulated success as real.
+- Hide login, Sandbox buyer contact details, passwords, API keys, cookies and signed capability tokens.
+- Sandbox settlement goes to the configured test merchant and does not buy or deliver Channel3 products.
+- Upload the produced video publicly to YouTube and enter its actual URL in Devpost.

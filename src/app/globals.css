@@ -3453,3 +3453,122 @@ code {
   overflow: visible;
   padding: 12px;
 }
+.demo-scenarios {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 20px 0;
+}
+.demo-scenarios button {
+  background: transparent;
+  border: 1px solid var(--border);
+  padding: 18px;
+  text-align: left;
+  color: var(--text);
+  cursor: pointer;
+  border-radius: 6px;
+}
+.demo-scenarios strong {
+  display: block;
+  font: 11px var(--mono);
+  color: var(--blue);
+  margin-bottom: 9px;
+}
+.demo-scenarios span {
+  font-size: 11px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+.authority-model {
+  margin: 24px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 18px 0;
+}
+.landing > .authority-model {
+  margin: 0;
+  padding: 28px max(30px, calc((100vw - 1160px) / 2));
+}
+.authority-roles {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.authority-roles strong {
+  display: block;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+.authority-roles span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  line-height: 1.9;
+  color: var(--muted);
+}
+.authority-roles svg {
+  color: var(--blue);
+}
+.authority-model > p {
+  display: flex;
+  gap: 9px;
+  align-items: center;
+  flex-wrap: wrap;
+  color: var(--muted);
+  font-size: 10px;
+  margin: 16px 0 0;
+}
+.catalog-scope-notice {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  font: 10px/1.8 var(--mono);
+  color: var(--amber);
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+}
+.scope-note {
+  font-size: 11px;
+  line-height: 1.8;
+  color: var(--muted);
+  font-weight: normal;
+}
+.policy-rule.pending .rule-icon {
+  color: var(--amber);
+  background: #332d23;
+}
+.over-budget-moment {
+  display: grid;
+  gap: 8px;
+  margin-top: 20px;
+  padding: 18px 0;
+  border-top: 1px solid var(--red);
+  border-bottom: 1px solid var(--red);
+}
+.over-budget-moment > span {
+  font: 9px var(--mono);
+  color: var(--muted);
+}
+.over-budget-moment > strong {
+  font: 26px var(--mono);
+}
+.over-budget-moment > b {
+  color: var(--red);
+  font: 12px var(--mono);
+  margin-top: 8px;
+}
+.over-budget-moment p {
+  font-size: 11px;
+  line-height: 1.8;
+  color: var(--red);
+  margin: 0;
+}
+@media (max-width: 600px) {
+  .demo-scenarios {
+    grid-template-columns: 1fr;
+  }
+  .authority-roles {
+    grid-template-columns: 1fr 1fr;
+  }
+}

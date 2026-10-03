@@ -1,0 +1,159 @@
+{
+  "scenario": "B",
+  "origin": "https://boundpay.vercel.app",
+  "verifiedAt": "2026-10-03T14:32:03.876Z",
+  "model": "manual strict mandate; live planning remains enabled",
+  "mandate": {
+    "missionId": "e0e84825-dc06-4847-8848-69232f1785d7",
+    "title": "Engineering team workspace",
+    "description": "Equip our 12-person engineering team with 27-inch USB-C monitors. Maximum budget $3,000. Minimum rating 4.5. Delivery before Friday. Do not spend money without my approval.",
+    "category": "computer monitors",
+    "requiredCategory": null,
+    "executionScope": "verified_purchase",
+    "currency": "USD",
+    "quantity": 12,
+    "maxTotal": 300000,
+    "maxUnit": null,
+    "deliveryDeadline": "2026-10-09",
+    "hardConstraints": [
+      {
+        "type": "display_size",
+        "operator": ">=",
+        "value": 27
+      },
+      {
+        "type": "usb_c",
+        "operator": "=",
+        "value": true
+      },
+      {
+        "type": "rating",
+        "operator": ">=",
+        "value": 4.5
+      }
+    ],
+    "softPreferences": [
+      "IPS",
+      "height adjustable"
+    ],
+    "merchantPolicy": {
+      "allow": [],
+      "block": []
+    },
+    "approval": {
+      "required": true
+    }
+  },
+  "metrics": {
+    "durationMs": 13064,
+    "llmCalls": 2,
+    "toolCalls": 17,
+    "evaluated": 30,
+    "rejected": 9,
+    "needsEvidence": 21,
+    "eligible": 0,
+    "constraintsChecked": 330
+  },
+  "policy": {
+    "valid": false,
+    "evaluations": [
+      {
+        "rule": "TOTAL_BUDGET",
+        "label": "Total budget",
+        "status": "PASS",
+        "expected": "$3,000.00",
+        "observed": "$1,799.88",
+        "explanation": "Basket stays inside the authorized ceiling."
+      },
+      {
+        "rule": "QUANTITY",
+        "label": "Quantity",
+        "status": "PASS",
+        "expected": "12 units",
+        "observed": "12 units",
+        "explanation": "Exactly the requested quantity."
+      },
+      {
+        "rule": "CURRENCY",
+        "label": "Currency",
+        "status": "PASS",
+        "expected": "USD",
+        "observed": "USD",
+        "explanation": "Dell Pro P Series Monitor: Currency matches your confirmed mandate."
+      },
+      {
+        "rule": "DISPLAY_SIZE_0",
+        "label": "Display size",
+        "status": "NEEDS_EVIDENCE",
+        "expected": "At least 27 inches",
+        "observed": "Not provided by source",
+        "explanation": "Dell Pro P Series Monitor: Display size cannot be verified from available evidence."
+      },
+      {
+        "rule": "USB_C_1",
+        "label": "USB-C",
+        "status": "NEEDS_EVIDENCE",
+        "expected": "Required",
+        "observed": "Not provided by source",
+        "explanation": "Dell Pro P Series Monitor: USB-C cannot be verified from available evidence."
+      },
+      {
+        "rule": "MINIMUM_RATING_2",
+        "label": "Minimum rating",
+        "status": "NEEDS_EVIDENCE",
+        "expected": "4.5 / 5",
+        "observed": "Not provided by source",
+        "explanation": "Dell Pro P Series Monitor: Minimum rating cannot be verified from available evidence."
+      },
+      {
+        "rule": "DELIVERY_DEADLINE",
+        "label": "Delivery",
+        "status": "NEEDS_EVIDENCE",
+        "expected": "By 2026-10-09",
+        "observed": "No committed date from source",
+        "explanation": "Dell Pro P Series Monitor: Delivery cannot be verified from available evidence."
+      },
+      {
+        "rule": "MERCHANT_POLICY",
+        "label": "Merchant policy",
+        "status": "PASS",
+        "expected": "Any non-blocked merchant",
+        "observed": "bestbuy.com",
+        "explanation": "Dell Pro P Series Monitor: Merchant policy matches your confirmed mandate."
+      },
+      {
+        "rule": "LANDED_COST",
+        "label": "Final cost evidence",
+        "status": "NEEDS_EVIDENCE",
+        "expected": "Taxes and shipping included / verified",
+        "observed": "Retail price only; taxes/shipping unknown",
+        "explanation": "Dell Pro P Series Monitor: Final cost evidence cannot be verified from available evidence."
+      },
+      {
+        "rule": "STOCK",
+        "label": "Availability",
+        "status": "NEEDS_EVIDENCE",
+        "expected": "12 available",
+        "observed": "Exact quantity not provided by source",
+        "explanation": "Available quantity must be verified before payment."
+      },
+      {
+        "rule": "APPROVAL_REQUIRED",
+        "label": "Human approval",
+        "status": "REQUIRES_APPROVAL",
+        "expected": "Explicit review of this fingerprint",
+        "observed": "Required before checkout",
+        "explanation": "The agent cannot grant spending authority."
+      }
+    ],
+    "total": 179988,
+    "headroom": 120012
+  },
+  "fingerprint": "12f696115e8a11c0370aee6d62a152c4166a61c6f20bef8bd080911146c76083",
+  "paymentCapabilityIssued": false,
+  "exampleProduct": {
+    "id": "KVHTjM2::0",
+    "title": "Dell Pro P Series Monitor",
+    "merchant": "bestbuy.com"
+  }
+}

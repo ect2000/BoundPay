@@ -5,6 +5,8 @@ import { MandateSchema, type SpendingMandate } from '@/lib/domain';
 import { decimalAmount, minorUnits } from '@/lib/money';
 import { Button } from './ui/button';
 type Fields = {
+  executionScope: SpendingMandate['executionScope'];
+  requiredCategory: string;
   title: string;
   category: string;
   budget: string;
@@ -38,6 +40,8 @@ export function MandateEditor({
     formState: { errors },
   } = useForm<Fields>({
     defaultValues: {
+      executionScope: mandate.executionScope,
+      requiredCategory: mandate.requiredCategory ?? '',
       title: mandate.title,
       category: mandate.category,
       budget: decimalAmount(mandate.maxTotal),
@@ -74,6 +78,8 @@ export function MandateEditor({
       for (const f of split(v.features)) hard.push({ type: 'feature', operator: '=', value: f });
       const confirmed = MandateSchema.parse({
         ...mandate,
+        executionScope: v.executionScope,
+        requiredCategory: v.requiredCategory || null,
         title: v.title,
         category: v.category,
         maxTotal: minorUnits(v.budget),
@@ -102,6 +108,27 @@ export function MandateEditor({
           <h2>I understood your request as:</h2>
           <p>These rules become the agent’s boundaries. Review and correct every field.</p>
         </div>
+      </div>
+      <div className="form-grid mandate-scope">
+        <label className="span-2">
+          Authorization scope
+          <select {...register('executionScope')}>
+            <option value="verified_purchase">
+              Verified purchase — final cost and stock evidence required
+            </option>
+            <option value="sandbox_catalog">
+              Sandbox catalog subtotal — no retail order or fulfillment
+            </option>
+          </select>
+          <span className="scope-note">
+            Catalog scope authorizes an exact Sandbox test amount only. Ratings, delivery and stock
+            remain unverified; any explicitly required fact must still pass.
+          </span>
+        </label>
+        <label className="span-2">
+          Required source category <span className="optional">optional exact slug</span>
+          <input {...register('requiredCategory')} placeholder="e.g. computer-monitors" />
+        </label>
       </div>
       <div className="form-section-title">
         Purchasing mandate <span>01 / AUTHORITY</span>

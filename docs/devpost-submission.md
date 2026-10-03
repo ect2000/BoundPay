@@ -1,6 +1,6 @@
 # Devpost submission copy
 
-Status note: the following describes the implemented product. Real OpenRouter parsing/planning, Channel3 search/detail and PayPal Sandbox authentication have been verified. Buyer approval and completed Sandbox capture remain pending. Do not submit screenshots of a simulation as real integration evidence.
+Verified live: real OpenRouter extraction/planning, fresh Channel3 search/detail, Policy Guard PASS, human approval, actual PayPal Sandbox order, buyer approval and completed capture. Order `4ER995653J590745D`, capture `8JG393861X927505V`, exactly USD 2,950.68; authenticated PayPal GET confirmed the completed capture and matching fingerprint. A real USD 3,601.56 proposal was blocked against USD 3,000. [Sanitized evidence](live-payment-completed.json). Local simulations are separately labeled.
 
 ## Project name
 
@@ -16,7 +16,7 @@ An AI can compare monitors in seconds. But who decides what it is allowed to spe
 
 ## What it does
 
-Describe a purchasing mission, review the structured spending mandate, and let a bounded agent research candidates. Compare offers in AG Grid, inspect rejected requirements and transparent ranking, and select a basket. Policy Guard checks budget, quantity, currency, features, ratings, delivery, merchants and evidence. A valid basket becomes a payment mandate. Human approval binds to its fingerprint, and only then can the server initiate PayPal Sandbox checkout. An attributed audit explains each decision and payment result.
+Describe a purchasing mission, review the structured spending mandate, and let a bounded agent research candidates. Compare offers in AG Grid, inspect requirements and deterministic ranking, and select a basket. Policy Guard evaluates the exact authorized action: Demo A is a Sandbox catalog-subtotal test with verifiable category, prices, currency, merchant and quantity arithmetic; Demo B requires evidence of rating, delivery, inventory and landed cost and deliberately blocks when it is absent. A valid basket becomes a payment mandate. Human approval binds to its fingerprint, and only then can the server initiate PayPal Sandbox checkout. The compact authority diagram explains AI recommendation, policy validation, human approval and PayPal execution. An attributed audit explains each decision and payment result.
 
 ## How we built it
 
@@ -44,11 +44,11 @@ The official TypeScript SDK calls product search and freshly retrieves details b
 
 ## Challenges we ran into
 
-Free inference must fail safely when rate-limited or incompatible with strict structured output. Product catalogs often omit committed delivery, exact stock quantity and landed costs. We chose explicit missing-evidence rejection and reviewed quotes over invented guarantees. Stateless storage also required short-lived signed snapshots and browser-context invalidation rather than pretending there was a durable authorization database.
+Free inference must fail safely when rate-limited or incompatible with strict structured output. An initial real catalog run found 30 candidates but proved none met every requested requirement. We separated a narrowly authorized Sandbox subtotal test from a stricter delivered-purchase mandate. Unknown facts remain unknown in both: if required, they block payment. This makes a working demo truthful without weakening the default policy. Stateless storage also required short-lived signed snapshots and browser-context invalidation rather than pretending there was a durable authorization database.
 
 ## Accomplishments
 
-A complete local workflow genuinely blocks over-budget purchases, keeps injection text outside policy, binds approvals to the complete purchase, and tests PayPal amount/idempotency boundaries. The UI exposes research, reasoning, policy and human authority in one coherent experience. No model receives a payment tool.
+Two deliberate, truthful scenarios exercise real Channel3 research. The public happy path produced 3 eligible offers from 30 and six passing hard checks for a USD 2,950.68 basket. A real USD 3,601.56 offer was blocked; a strict research run issued no payment capability for missing evidence. Actual human approval, Sandbox buyer approval, exact completed capture and audit are verified. 74 unit/adapter tests and four Playwright journeys cover the policy, approval and payment boundaries. No model receives a payment tool.
 
 ## What we learned
 
@@ -56,7 +56,7 @@ The most valuable part of agentic procurement is the boundary between a suggesti
 
 ## What's next
 
-Complete authenticated live demo evidence, integrate verified merchant quotes and checkout amounts directly, extend to mixed baskets, and add durable authorization revocation and an immutable ledger before considering real-money use.
+Record the verified live scenarios, integrate verified merchant quotes and checkout amounts directly, extend to mixed baskets, and add durable authorization revocation and an immutable ledger before considering real-money use.
 
 ## Built with
 

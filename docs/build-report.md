@@ -1,75 +1,63 @@
-# BoundPay build report
+# BoundPay final demo build report
 
-Verified 3 October 2026. This report separates shipped implementation from the remaining human payment and submission steps.
+Verified 3 October 2026. Public app: https://boundpay.vercel.app · MIT source: https://github.com/ect2000/BoundPay
 
 ## Result
 
-The Next.js app implements mission entry, reviewed structured mandates, bounded research, real product comparison, deterministic ranking, Policy Guard, merchant quote attestation, fingerprint-bound approval, Sandbox checkout/capture adapters, an attributed audit and JSON export. The premium responsive workspace and complete local development journey work. Actual OpenRouter parsing/planning and Channel3 discovery have been verified; PayPal Sandbox OAuth authentication succeeds. **Buyer-approved checkout and completed Sandbox capture are pending.** No payment completion is fabricated.
+**A real buyer-approved PayPal Sandbox capture is completed.** Both deliberate demos are implemented, with explicit authorization scope, missing-evidence status, deterministic ranking, genuine budget blocking, fingerprint-bound human approval, actual PayPal execution and attributed audit. No database, authentication, unrelated integrations, new LLM provider or architecture rewrite was added.
 
-## Public URL and repository
+## Exact live evidence
 
-- App: https://boundpay.vercel.app
-- MIT source: https://github.com/ect2000/BoundPay
+| Check                        | Observed evidence                                                                                                                                                                                          |
+| ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| OpenRouter                   | Actual Nemotron extraction produced the reviewed Sandbox catalog-subtotal mandate; real planning/explanation calls completed.                                                                              |
+| Channel3, Demo A             | Public run: 30 candidates, 3 eligible, 27 rejected, 0 needing evidence, 20 API calls, 3 AI requests, 13.92 seconds. Prices/details refreshed through official SDK 4.x.                                     |
+| Compliant basket             | 12 Sharp Multisync Desktop Monitors from catalog source staples.com, USD 245.89 each, **USD 2,950.68**, USD 49.32 headroom.                                                                                |
+| Policy Guard                 | Six hard checks passed: budget, quantity, exact category, currency, catalog subtotal and merchant. Human approval remained required.                                                                       |
+| Mandate fingerprint          | `5b2eb7e719b0ac17651edf429e044883cd76bf6d9def1ed84321e5e0a42f41a6`                                                                                                                                         |
+| Genuine live block           | LG monitor offer from bestbuy.com: 12 × USD 300.13 = **USD 3,601.56**, USD 601.56 over the USD 3,000 ceiling; no payment capability.                                                                       |
+| Human approval               | User review recorded at 16:33:51 Europe/Madrid after the first attempt was cancelled.                                                                                                                      |
+| PayPal order                 | **`4ER995653J590745D`**, created after approval at 16:33:53.                                                                                                                                               |
+| Buyer approval and capture   | User completed Sandbox checkout with another buyer account; app recorded capture at 16:34:44. Adapter requires PayPal `APPROVED` before capture.                                                           |
+| Completed capture            | **`8JG393861X927505V`**, `COMPLETED`, **USD 2,950.68**.                                                                                                                                                    |
+| Independent API verification | Authenticated capture lookup and Orders v2 GET confirmed the completed order, matching fingerprint, exact currency/amount and exactly one completed capture. Private payer/payee details were excluded.    |
+| Audit                        | Actual `USER_APPROVED`, `PAYPAL_ORDER_CREATED` and `PAYMENT_CAPTURED` events displayed with the same fingerprint.                                                                                          |
+| Channel3, Demo B             | Public strict-mandate API run: 30 candidates, 21 needing evidence, 9 proved failures, 0 eligible, 17 product API calls, 2 real planning calls, 330 rule checks in 13.064 seconds; no payment token issued. |
 
-## AI and OpenRouter
+[Sanitized PayPal evidence](live-payment-completed.json) · [Strict-mission evidence](live-trust-evidence.json) · [Actual audit UI text](live-audit-ui.txt) · [Screenshot provenance](screenshots/README.md).
 
-Primary: `nvidia/nemotron-3-super-120b-a12b:free`. Fallback: `openrouter/free`. Catalog prompt/completion pricing is zero; inference also specifies zero maximum provider prices. The server allowlist rejects paid or unlisted routes before inference. Strict JSON schema plus Zod validate extraction, plans and explanations. Default retry limit is one, with finite timeouts.
+The first order, `4J8275956R087763E`, was cancelled by the user after a seller-account checkout error. Its API status remained `PAYER_ACTION_REQUIRED` with no captures. It is not counted as completion. A strict AI-extraction attempt also failed safely during free-provider unavailability; the strict API validation used an explicitly confirmed manual mandate, with real AI planning and Channel3 research. A later public browser run successfully extracted the strict draft; review restored its omitted Friday deadline before confirmation. It then produced 23 candidates needing evidence, seven proved failures and zero eligible, with 17 Channel3 calls, two planning calls and 330 checks in 10.65 seconds. [Actual strict UI evidence](live-trust-ui.txt). No output or payment was simulated in these live checks.
 
-The requested Gemma preference was evaluated. Its available free endpoint returned 404 for the required strict schema parameters. Nemotron successfully parsed the monitor mission in one real call, including quantity 12, total USD 3,000, USB-C, minimum display size/rating, Friday date and mandatory human approval. This is a tested suitability choice; no unsupported strongest-model benchmark claim is made.
+## Why both demos are truthful
 
-## Agent and product data
+Demo A explicitly authorizes only a Sandbox catalog subtotal. Fresh Channel3 category, positive offer price, currency and merchant are available; code proves exact quantity arithmetic and total. This does not assert ratings, stock, shipping, tax, delivery or retail fulfillment. Nine sampled fresh monitor products consistently exposed category, price, currency and merchant. Returned catalogs can change, so every run validates its own evidence.
 
-The agent plans searches, executes Channel3 discovery, suppresses duplicate queries, normalizes/deduplicates offers, applies hard eligibility before ranking, and proposes a uniform basket only if every hard rule passes. Default limits: 10 steps, three searches, 30 retained candidates, 20 canonical products per search. Detail reads are bounded in batches of four within each search timeout, and SDK automatic retries are disabled.
+Demo B keeps the default `verified_purchase` scope, including exact inventory and landed-cost evidence, plus display size, USB-C, rating and deadline. Missing mandatory facts get `NEEDS_EVIDENCE`; actual violations get `FAIL`. Both block authorization. The UI says **EVIDENCE INSUFFICIENT — PAYMENT BLOCKED** and identifies the missing facts. Unknown is never true. Any additionally requested hard requirement remains mandatory even in Sandbox catalog scope. Scope changes invalidate approval through the complete purchase fingerprint.
 
-Channel3 uses the official `@channel3/sdk` 4.x and environment-only authentication. Locale is passed through `config`; price and merchant filters constrain discovery. Free detail retrieval refreshes products before display. Failed detail refreshes exclude stale results. Offer prices convert into exact integer cents; missing rating, delivery, stock quantity and landed cost remain unknown.
+[Exact requirements and machine-verifiable evidence](demo-scenarios.md).
 
-A real bounded research run completed in about 17 seconds with two AI calls, 17 Channel3 API calls (one search plus 16 fresh detail reads), 30 candidates and 330 policy checks. All 30 were blocked because the catalog did not prove every required fact. The second repeated query was suppressed. No payment mandate was issued. These are observed results of one run, not a latency promise.
+## UX and authority
 
-The `channel3-api` skill was installed with the requested `npx skills add channel3-ai/skills --skill channel3-api` workflow, globally for Codex. Its SDK and freshness guidance informed the integration.
+The compact diagram shows AI Recommend ✓ / Spend ✕; Policy Guard Validate ✓ / Approve ✕; Human Approve ✓; PayPal Execute ✓. The visible flow is AI recommendation → Policy Guard → Human Approval → PayPal Sandbox.
 
-## Policy Guard and security
+The genuine local budget test uses a clearly labeled fixture: USD 3,000 authorized, USD 3,120 proposed, USD 120 over, PAYMENT BLOCKED. The same block UI uses actual values for a returned live offer and restores the compliant recommendation. No live price was changed to force USD 3,120.
 
-Code independently checks integer-cent total/per-unit budgets, exact quantity, currency, product features, rating, deadline, merchants, available quantity and landed cost. Published ranking weights are 30/25/20/15/10; ranking cannot override eligibility. Unknown evidence fails closed. Human-reviewed quotes are labeled as user attestation, never as Channel3 guarantees.
+## Security and execution boundaries
 
-The complete mandate and basket have a deterministic SHA-256 fingerprint. Purpose/session-bound HMAC envelopes prevent client edits and expire. Approval, order creation and capture recompute policy and bind to the current fingerprint. Edit/restart/reject invalidates browser context. No model receives payment tools. Product prose is untrusted data. Keys remain server-side, in ignored local environment files and Vercel secrets, with same-origin mutations, bounded input streams, security headers and Sandbox-only destinations.
+Integer cents, server policy recomputation, session/purpose/expiry-bound HMAC state, current fingerprint context, explicit human review, stable PayPal idempotency IDs, validated Sandbox redirect, pre-capture order checks and exact completed-capture verification remain enforced. Keys stay in ignored environment variables and private Vercel settings. The AI has only research/finish tools. Untrusted product prose grants no permissions.
 
-This stateless MVP has no global durable authorization revocation, distributed abuse limiter or tamper-proof regulatory audit. These limits are documented; browser audit export is operational evidence.
-
-## PayPal and agentic commerce
-
-The server adapter uses `https://api-m.sandbox.paypal.com`, OAuth, Orders v2 CAPTURE intent, exact line-item amounts, approval redirects, fingerprint `custom_id`, stable creation/capture idempotency IDs, pre-capture order verification and completed-capture amount verification. PayPal credentials authenticate successfully. Actual buyer approval/capture remain unverified.
-
-The agent autonomously researches and proposes; policy and human approval govern the transaction. PayPal Orders v2 is the execution boundary. Toolkit/MCP, ACP/UCP, Braintree Agent Ready and network membership are not claimed. Sandbox settlement goes to the configured test merchant and does not fulfill a Channel3 retailer order or move real money.
-
-## Sponsors and architecture
-
-Real Channel3 discovery and fresh details; AG Grid Community sorting/filtering/pinning and candidate-policy linkage; OpenRouter free inference; implemented PayPal Sandbox Orders v2. AG Studio/Enterprise and paid model routes are not used.
-
-One Next.js 16.3.8 App Router deployment, React 19.3, TypeScript, Tailwind 4, Radix, Motion, Lucide, React Hook Form, Zod, AG Grid, Recharts, Vitest and Playwright. No database or login. MIT source with CI instructions and environment template.
+PayPal Sandbox settlement goes to the configured test merchant; it does not order or deliver Channel3 goods. There is no real-money endpoint. Browser audit is operational evidence, not an immutable regulatory ledger. This stateless MVP has no durable global revocation or distributed abuse limiter.
 
 ## Validation
 
-- 68 unit/adapter tests passed: money, policy, schema, free routing, signed state, agent bounds, Channel3 SDK request/freshness/failure contracts and PayPal amount/idempotency/completion.
-- Three Playwright browser tests passed: complete clearly labeled local journey, real server rejection of an over-budget candidate, review gates, responsive 1440/1024/390 layouts, keyboard dismissal and stale/forged/cross-origin rejection.
-- ESLint, TypeScript and optimized production build passed. The [GitHub CI run for the application commit](https://github.com/ect2000/BoundPay/actions/runs/37127290226) also completed successfully on Ubuntu.
-- Runtime dependency audit: zero advisories. The development ESLint toolchain retains a transitive `braces` advisory; no incompatible framework downgrade was applied.
-- Authenticated live OpenRouter and Channel3 calls passed; Sandbox OAuth passed. These checks are distinct from local fixture browser tests.
-- The public browser journey completed with no page errors or horizontal overflow; the payment-review control remained disabled for rejected candidates. Live comparison and agent-trace screenshots are included. Public landing/status return HTTP 200. A production OpenRouter parse returned the real Nemotron model; a production Channel3 research run returned 30 candidates, 17 product API calls, two LLM calls and 330 rule evaluations in 8.48 seconds. Public deployment uses real provider modes; integration status distinguishes configuration from connection testing.
+- **74 unit/adapter tests passed**, covering policy, evidence, both scopes, scope-bound approval, exact money, signed state, agent bounds, provider contracts and PayPal amount/idempotency/completion.
+- **Four Playwright tests passed**, covering local complete journey, exact USD 3,120 rejection and restore, review gates, responsive layouts, keyboard controls, forged/stale state and same-origin protections.
+- **Lint, typecheck and production build passed.** Local tests use clearly labeled fixtures; live provider evidence above is separate.
+- Production runs real OpenRouter, Channel3 and PayPal Sandbox. Final deployment `dpl_EsNTFjzgeFdVYL2KcuHJezDcN7X9` is READY and aliased to https://boundpay.vercel.app; `/api/status` returned HTTP 200 with real provider modes. The Channel3 skill is installed, and the official SDK/freshness guidance is used.
+- Runtime dependency audit previously reported zero advisories. The development ESLint toolchain retains a transitive braces advisory; no incompatible downgrade was made.
 
-## Demo, Devpost and screenshots
+## Submission artifacts
 
-[Demo script](demo-video-script.md): 2:50 from mission, mandate and streamed research through comparison, policy rejection, exact payment mandate, human approval, Sandbox buyer approval/capture and attributed audit. [Devpost copy](devpost-submission.md) contains project name, tagline, inspiration, functionality, architecture, AI, PayPal/agentic commerce, sponsors, challenges, accomplishments, lessons, next steps and public links.
+README, Devpost copy, the 2:50 video script, scenario evidence and screenshot notes are updated. The script prioritizes problem → mission → AI mandate → real research → comparison → policy → deliberate block → compliant basket → human approval → real Sandbox completion → audit → authority model. Captured live screenshots show budget block, mandate, approval, compliant policy, agent trace and actual completion/audit. Local simulated payment images remain explicitly labeled.
 
-The screenshot pack covers landing, mission, mandate, pending research, grid, policy, rationale, payment mandate, honest local simulation, audit, rejection and responsive layouts. [Asset notes](screenshots/README.md) explicitly identify fixtures/simulation. Local payment screenshots are not final live payment evidence. No produced video or YouTube URL is claimed.
-
-## Credentials, manual steps and blockers
-
-All four API variables are configured locally and in Vercel Production. **No additional API key is missing.** The remaining steps are personal review of a real current merchant quote, human BoundPay approval, personal Sandbox buyer login/approval, completed capture verification, live payment screenshots, recording/public YouTube upload and Devpost submission. Do not share buyer passwords or new API secrets in chat. Rotate credentials previously shared in chat privately, and update local/Vercel variables.
-
-The actual blockers to a fully verified hackathon submission are the human quote/payment approvals and produced video. [Exact activation/verification steps](credentials.md) are provided. Catalog evidence cannot be invented to bypass policy.
-
-## Next improvements with submission value
-
-1. Complete and record the real buyer-approved Sandbox capture and audit.
-2. Replace local payment screenshots with that live evidence and upload the 2:50 video.
-3. Obtain directly verified merchant quotes with landed cost, committed delivery and quantity to reduce manual attestation.
+The remaining submission steps are recording the video, public YouTube upload and entering the actual video URL in Devpost. No produced video or submitted Devpost entry is claimed. No additional API key is missing.

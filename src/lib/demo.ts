@@ -1,6 +1,20 @@
 import { ProductSchema, type ProductCandidate, type SpendingMandate } from './domain';
 export const DEMO_REQUEST =
   'Equip our 12-person engineering team with 27-inch USB-C monitors. Maximum budget $3,000. Minimum rating 4.5. Delivery before Friday. Do not spend money without my approval.';
+export const LIVE_DEMO_REQUEST =
+  'Plan a PayPal Sandbox catalog-subtotal test for 12 computer monitors with a maximum total budget of 3000 USD. The only hard requirements are: exact Channel3 category computer-monitors, USD catalog prices, identified merchant, exactly 12 units in the basket, and total catalog subtotal within budget. IPS is a soft preference only. This authorizes an exact Sandbox test subtotal, not a delivered retail purchase. Always require my human approval.';
+export function liveDemoMandate(): SpendingMandate {
+  return {
+    ...demoMandate(),
+    title: 'Team monitors — Sandbox catalog subtotal',
+    description: LIVE_DEMO_REQUEST,
+    executionScope: 'sandbox_catalog',
+    requiredCategory: 'computer-monitors',
+    deliveryDeadline: null,
+    hardConstraints: [],
+    softPreferences: ['IPS'],
+  };
+}
 export function nextFriday(now = new Date()) {
   const d = new Date(now);
   const days = (5 - d.getUTCDay() + 7) % 7 || 7;
@@ -13,6 +27,8 @@ export function demoMandate(): SpendingMandate {
     title: 'Engineering team workspace',
     description: DEMO_REQUEST,
     category: 'computer monitors',
+    requiredCategory: null,
+    executionScope: 'verified_purchase',
     currency: 'USD',
     quantity: 12,
     maxTotal: 300000,
@@ -72,7 +88,7 @@ export function demoProducts(deadline = nextFriday()): ProductCandidate[] {
       'summit-27',
       'Summit Pro 27 4K',
       'Summit Direct',
-      32900,
+      26000,
       4.9,
       27,
       true,
@@ -123,6 +139,7 @@ export function demoProducts(deadline = nextFriday()): ProductCandidate[] {
       ProductSchema.parse({
         id,
         title,
+        category: 'computer-monitors',
         merchant,
         unitPrice,
         rating,

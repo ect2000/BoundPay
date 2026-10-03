@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { ArrowDown, ArrowRight, Check, Fingerprint, LockKeyhole, ShieldCheck } from 'lucide-react';
+import { AuthorityModel } from '@/components/authority-model';
 import { Brand } from '@/components/brand';
 import { FlowVisual } from '@/components/flow-visual';
 import { Button } from '@/components/ui/button';
@@ -73,6 +74,7 @@ export default function Home() {
           You decide <strong>when money moves.</strong>
         </p>
       </section>
+      <AuthorityModel />
       <section className="how-section" id="how-it-works">
         <div className="section-intro">
           <span className="eyebrow">A PURCHASE YOU CAN EXPLAIN</span>
