@@ -51,10 +51,10 @@ One Next.js 16.3.8 App Router deployment, React 19.3, TypeScript, Tailwind 4, Ra
 
 - 68 unit/adapter tests passed: money, policy, schema, free routing, signed state, agent bounds, Channel3 SDK request/freshness/failure contracts and PayPal amount/idempotency/completion.
 - Three Playwright browser tests passed: complete clearly labeled local journey, real server rejection of an over-budget candidate, review gates, responsive 1440/1024/390 layouts, keyboard dismissal and stale/forged/cross-origin rejection.
-- ESLint, TypeScript and optimized production build passed.
+- ESLint, TypeScript and optimized production build passed. The [GitHub CI run for the application commit](https://github.com/ect2000/BoundPay/actions/runs/37127290226) also completed successfully on Ubuntu.
 - Runtime dependency audit: zero advisories. The development ESLint toolchain retains a transitive `braces` advisory; no incompatible framework downgrade was applied.
 - Authenticated live OpenRouter and Channel3 calls passed; Sandbox OAuth passed. These checks are distinct from local fixture browser tests.
-- Public landing/status return HTTP 200. A production OpenRouter parse returned the real Nemotron model; a production Channel3 research run returned 30 candidates, 17 product API calls, two LLM calls and 330 rule evaluations in 8.48 seconds. Public deployment uses real provider modes; integration status distinguishes configuration from connection testing.
+- The public browser journey completed with no page errors or horizontal overflow; the payment-review control remained disabled for rejected candidates. Live comparison and agent-trace screenshots are included. Public landing/status return HTTP 200. A production OpenRouter parse returned the real Nemotron model; a production Channel3 research run returned 30 candidates, 17 product API calls, two LLM calls and 330 rule evaluations in 8.48 seconds. Public deployment uses real provider modes; integration status distinguishes configuration from connection testing.
 
 ## Demo, Devpost and screenshots
 
